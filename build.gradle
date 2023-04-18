@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	testImplementation 'junit:junit:4.13.1'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.0.5'
 	implementation 'org.apache.poi:poi:3.12'
 	compileOnly 'org.projectlombok:lombok'
 	compileOnly "org.mapstruct:mapstruct:1.5.3.Final"
