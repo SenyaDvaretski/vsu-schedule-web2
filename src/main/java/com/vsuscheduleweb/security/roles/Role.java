@@ -8,8 +8,8 @@ import java.util.Set;
 
 @Getter
 public enum Role {
-    USER(Set.of(Permission.HOTELS_READ)),
-    ADMIN(Set.of(Permission.HOTELS_WRITE,Permission.HOTELS_READ));
+    USER(Set.of(Permission.EXAMPLE_PERMISSION)),
+    ADMIN(Set.of(Permission.EXAMPLE_PERMISSION));
     private final Set<Permission> permissions;
 
     Role(Set<Permission> permissions){

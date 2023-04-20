@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum Permission {
 
-    HOTELS_READ("hotels:read"),
-    HOTELS_WRITE("hotels:write");
+    EXAMPLE_PERMISSION("permission:example");
+
 
     public final String permission;
 
