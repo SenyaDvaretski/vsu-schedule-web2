@@ -1,0 +1,66 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 100%;
+    height: 100vh;
+    background: url("../img/Frame.jpg") center,center/cover, no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.dlock__wrapper {
+    width: 504px;
+    height: 489px;
+    align-items: center;
+    border-radius: 40px;
+}
+.white__block_descr{
+    font-style: italic;
+    font-weight: 200;
+    font-size: 50px;
+    line-height: 59px;
+    text-align: center;
+    color: #fff;
+    margin-top: 47px;
+    margin-bottom: 17px;
+}
+.white__block_emile, .white__block_password {
+    margin-left: 26px;
+    margin-bottom: 34px;
+    font-size: 35px;
+    width: 430px;
+    height: 93px;
+    border: 2px solid #0D0D0D;
+    border-radius: 25px;
+    align-items: center;
+    padding-left: 10px;
+    background: none;
+    transition: all 0.5s;
+}
+.white__block_button {
+    display: flex;
+    margin-top: 34px;
+    width: 235px;
+    height: 62px;
+    border: 2px solid #0D0D0D;
+    border-radius: 20px;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 53px;
+    margin: 0 auto;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    transition: all 0.5s;
+}
+.white__block_button:hover{
+    border: 2px  solid #0dff4a;
+    color: #0dff4a;
+} 
+.white__block_emile:hover, .white__block_password:hover {
+    border: 2px  solid #FFFFFF;
+}

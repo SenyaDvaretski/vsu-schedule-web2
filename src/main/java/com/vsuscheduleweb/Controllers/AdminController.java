@@ -14,7 +14,7 @@ public class AdminController {
 
     @RequestMapping(value = "vsuAdmin/**", method = RequestMethod.GET)
     public String getAdminPage(){
-        return "index";
+        return "login-page/src/index";
     }
 
 
