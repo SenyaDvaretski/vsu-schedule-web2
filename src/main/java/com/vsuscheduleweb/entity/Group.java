@@ -15,7 +15,7 @@ import java.util.List;
 public class Group {
     String id;
 
-    List<Lesson> lessons = new ArrayList<>(); // общие пары
+    List<Lesson> commonLessons = new ArrayList<>();
 
     List<Subgroup> subgroups = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class Group {
     int countOfSubGroups; // transitional
 
     public void addLesson(Lesson lesson){
-        lessons.add(lesson);
+        commonLessons.add(lesson);
     }
 
     public void addSubgroup(Subgroup subgroup){

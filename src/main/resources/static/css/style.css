@@ -28,7 +28,7 @@
     margin-top: 47px;
     margin-bottom: 17px;
 }
-.white__block_emile, .white__block_password {
+.white__block_email, .white__block_password {
     margin-left: 26px;
     margin-bottom: 34px;
     font-size: 35px;
@@ -61,6 +61,6 @@
     border: 2px  solid #0dff4a;
     color: #0dff4a;
 } 
-.white__block_emile:hover, .white__block_password:hover {
+.white__block_email:hover, .white__block_password:hover {
     border: 2px  solid #FFFFFF;
 }

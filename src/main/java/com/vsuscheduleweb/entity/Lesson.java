@@ -1,10 +1,7 @@
 package com.vsuscheduleweb.entity;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
@@ -12,9 +9,7 @@ import java.util.List;
 
 
 //одно занятие с его временем, аудиторией и датой
-@Setter
-@Getter
-@NoArgsConstructor
+@Data
 @Accessors(chain = true)
 @ToString
 public class Lesson {
@@ -26,7 +21,7 @@ public class Lesson {
 
     String date;
 
-    String dayName;
+    String weekDay;
 
     List<Teacher>  teachers = new ArrayList<>();
 

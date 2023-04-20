@@ -1,9 +1,8 @@
-
 server:
   port: 5000
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5444/hotel-db
+    url: jdbc:postgresql://localhost:5444/vsu-schedule-db
     username: admin
     password: admin

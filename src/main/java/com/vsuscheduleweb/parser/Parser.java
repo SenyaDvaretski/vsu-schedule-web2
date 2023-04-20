@@ -29,7 +29,7 @@ public  class Parser {
 
     public List<Group> getGroups() {
         for(int i = 0; i < groups.size(); i++){
-            groups.get(i).getLessons().removeIf(lesson -> lesson.getName().equals(""));
+            groups.get(i).getCommonLessons().removeIf(lesson -> lesson.getName().equals(""));
             for(int j = 0; j < groups.get(i).getSubgroups().size(); j++){
                 groups.get(i).getSubgroups().get(j).getLessons().removeIf(lesson -> lesson.getName().equals(""));
             }
@@ -37,7 +37,7 @@ public  class Parser {
         return groups;
     }
 
-    // метод удаляет мусорные ячейки из тех которые мы напарсили в методе getAllCellsWhereBorderLeftExist()
+
     private  List<Cell> returnWorkspace(Workbook wb){
         List<Cell> cells = getAllCellsWhereBorderLeftExist(wb);
 
@@ -50,7 +50,6 @@ public  class Parser {
         return cells;
     }
 
-    // метод берет только те ячейки у которых есть левая граница в стилях
     private  List<Cell> getAllCellsWhereBorderLeftExist(Workbook wb){
         Sheet st = wb.getSheetAt(0);
         List<Cell> cells = new ArrayList<>();
@@ -207,7 +206,7 @@ public  class Parser {
             if(parsMode == ParserStage.PARSER_STAGE_LESSONS ) {
                 Lesson lesson = parseLesson(workspace.get(i));
                 lesson .setDate(date)
-                        .setDayName(day)
+                        .setWeekDay(day)
                         .setStartTime(startTime)
                         .setEndTime(endTime);
                 queueOfLessons.add(lesson);
@@ -294,7 +293,7 @@ public  class Parser {
         String teacherInitials = parseTeacherInitials(s);
         String teacherQualification = parseTeacherQualification(s);
         return new Teacher()
-                        .setLastName(teacherLastName)
+                        .setLastname(teacherLastName)
                         .setQualification(teacherQualification)
                         .setInitials(teacherInitials);
 
@@ -370,7 +369,7 @@ public  class Parser {
     }
 
     private boolean isThisLessonInGroup(Lesson lesson, Group group){
-        for(Lesson groupLesson : group.getLessons()){
+        for(Lesson groupLesson : group.getCommonLessons()){
             if(groupLesson.getStartTime().equals(lesson.getStartTime()) && groupLesson.getDate().equals(lesson.getDate())){
                 return true;
             }

@@ -1,9 +1,6 @@
 package com.vsuscheduleweb.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
@@ -11,9 +8,7 @@ import java.util.List;
 
 
 
-@Setter
-@Getter
-@NoArgsConstructor
+@Data
 @Accessors(chain = true)
 @ToString
 public class Subgroup {
