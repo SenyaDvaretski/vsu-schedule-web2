@@ -1,6 +1,8 @@
 package com.vsuscheduleweb.security;
 
+import com.vsuscheduleweb.Exceptions.TokenException;
 import com.vsuscheduleweb.services.JwtService;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,7 +43,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
         jwtToken = authHeader.substring(7);
+
         login = jwtService.extractLogin(jwtToken);
+
         if(login != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(login);
             if(jwtService.isTokenValid(jwtToken, userDetails)){

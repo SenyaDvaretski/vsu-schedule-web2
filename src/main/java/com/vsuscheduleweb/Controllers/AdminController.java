@@ -8,15 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping(value = "/vsuAdmin")
+@RequestMapping()
 public class AdminController {
 
 
-    @GetMapping()
+    @GetMapping(value = "/vsuAdmin")
     public String getAdminPage(){
-        return "index";
+        return "vsuAdminApp";
     }
 
+    @GetMapping("/")
+    public String getRoot(){
+        return "redirect:/vsuAdmin";
+    }
 
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
 
 }

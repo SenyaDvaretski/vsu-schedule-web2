@@ -31,6 +31,7 @@ public class AppUser implements UserDetails {
     private String status;
     private String email;
     private String login;
+
     private String password;
     @Column(name = "created_at")
     private Date createdAt;
@@ -63,8 +64,6 @@ public class AppUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        if(this.status.equals("locked"))
-            return false;
         return true;
     }
 

@@ -1,8 +1,7 @@
 package com.vsuscheduleweb.services;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.vsuscheduleweb.Exceptions.TokenException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,9 @@ public class JwtService {
             "66546A576E5A72347537782141";
 
     public String extractLogin(String token){
-        return extractClaim(token,Claims::getSubject);
+
+        return extractClaim(token, Claims::getSubject);
+
 
     }
 
@@ -56,12 +57,17 @@ public class JwtService {
         return extractClaim(token,Claims::getExpiration);
     }
     private Claims extractAllClaims(String token){
+        try {
+            return Jwts
+                    .parser()
+                    .setSigningKey(getSigningKey())
+                    .parseClaimsJws(token)
+                    .getBody();
+        }catch (JwtException e){
+            throw new TokenException("token is not valid.");
+        }
 
-        return Jwts
-                .parser()
-                .setSigningKey(getSigningKey())
-                .parseClaimsJws(token)
-                .getBody();
+
     }
 
     public <T> T extractClaim(String token, Function<Claims,T> claimsResolver){
