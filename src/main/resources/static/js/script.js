@@ -1,9 +1,8 @@
 
 
-const descr = document.querySelector('.white__block_descr'),
-      email = document.querySelector('.white__block_email'),
-      password = document.querySelector('.white__block_password'),
-      btn = document.querySelector('.white__block_button');
+const email = document.getElementById('email'),
+      password = document.getElementById('password'),
+          btn = document.getElementById('loginBtn');
 
 
 function loginWithLocalStorage(){

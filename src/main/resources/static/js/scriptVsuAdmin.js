@@ -97,16 +97,17 @@ function sendFiles(files) {
     let maxFileSize = 5242880;
     let Data = new FormData();
     $(files).each(function(index, file) {
-         if ((file.size <= maxFileSize) && ((file.type == 'image/png') || (file.type == 'image/jpeg'))) {
+         if (file.size <= maxFileSize) {
               Data.append('images[]', file);
          }
     });
 };
 $.ajax({
-    url: dropZone.attr('action'),
-    type: dropZone.attr('method'),
+    url: "/rest/uploadFile",
+    type: "POST",
     data: Data,
-    contentType: false,
+    contentType: "multipart/form-data",
+    dataType: 'json',
     processData: false,
     success: function(data) {
          alert('Файлы были успешно загружены');
