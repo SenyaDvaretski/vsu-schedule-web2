@@ -23,16 +23,13 @@ public class LogoutService implements LogoutHandler {
     ) {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        System.out.println("!!!!");
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            System.out.println("!");
             return;
         }
         jwt = authHeader.substring(7);
         var storedToken = tokenRepository.findByToken(jwt)
                 .orElse(null);
         if (storedToken != null) {
-            System.out.println("1");
             storedToken.setExpired(true);
             storedToken.setRevoked(true);
             tokenRepository.delete(storedToken);
