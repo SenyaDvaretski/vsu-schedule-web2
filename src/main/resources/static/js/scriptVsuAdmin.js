@@ -2,7 +2,7 @@ const body = document.querySelector("body"),
       modeToggle = body.querySelector(".mode-toggle");
       sidebar = body.querySelector("nav");
       sidebarToggle = body.querySelector(".sidebar-toggle");
-      logoutBtn = document.getElementsByClassName("logoutBtn")[0];
+      logoutBtn = document.getElementById("logoutBtn");
 
 
 logoutBtn.onclick = function () {

@@ -15,7 +15,6 @@
     <title>Admin Dashboard Panel</title> 
 </head>
 <body>
-
     <nav>
         <div class="logo-name">
 
@@ -31,7 +30,7 @@
             </ul>
             
             <ul class="logout-mode">
-                <li><a href="#" class="logoutBtn">
+                <li><a id="logoutBtn">
                     <i class="uil uil-signout"></i>
                     <span class="link-name">Logout</span>
                 </a></li>
@@ -52,18 +51,33 @@
 
     <section class="dashboard">
         <div class="top">
-            <form class="container container_dark" id="upload-container" method="POST" action="rest/uploadFile">
+            <form class="container container_dark" id="upload-container" method="POST" action="send.php">
                 <i class="uil uil-upload"></i>
                 <div class="text">
                      <input id="file-input" type="file" name="file" multiple>
                      <label class="descr descr_dark" for="file-input">Выберите файл</label>
                      <span class="descr_src descr_src_dark">или перетащите его сюда</span>
                 </div>
+                <form class="form" action="#">
+                    <label class="fakult" for="lang">Факультеты</label>
+                    <select name="languages" id="lang">
+                      <option value="select">Выбрать факультет</option>
+                      <option value="javascript">JavaScript</option>
+                      <option value="php">PHP</option>
+                      <option value="java">Java</option>
+                      <option value="golang">Golang</option>
+                      <option value="python">Python</option>
+                      <option value="c#">C#</option>
+                      <option value="C++">C++</option>
+                      <option value="erlang">Erlang</option>
+                    </select>
+                    <input class="submit_button" type="submit" value="Submit" />
+              </form>
            </form>
         </div> 
     </section>
+    
 
     <script src="js/scriptVsuAdmin.js"></script>
-
 </body>
 </html>
