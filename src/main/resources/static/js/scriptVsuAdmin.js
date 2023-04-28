@@ -82,3 +82,9 @@ $.ajax({
          alert('Файлы были успешно загружены');
     }
 });
+
+let descr = querySelector('.descr');
+let src = querySelector('.descr_src');
+let button = querySelector('.switch');
+let container = querySelector('.container ');
+

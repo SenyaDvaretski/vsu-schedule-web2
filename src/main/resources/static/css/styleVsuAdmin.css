@@ -462,10 +462,11 @@ nav.close ~ .dashboard .top{
     flex-direction: column;
     width: 400px;
     height: 400px;
-    outline: 2px dashed #110f0f;
+    outline: 2px dashed #adaaaa;
     outline-offset: -12px;
     background-color: none;
     color: #000000;
+    border-radius: 20px;
 }
 
 #upload-container img {
@@ -506,7 +507,7 @@ nav.close ~ .dashboard .top{
     outline: 1px solid #0078d7;
 }
 :focus {
-    outline: 1px solid #212121;
+    outline: 1px solid #ffffff;
 }
 #upload-container label.focus {
     outline: 1px solid #0078d7;
@@ -515,4 +516,40 @@ nav.close ~ .dashboard .top{
 #upload-container.dragover {
     background-color: #ffffff;
     outline-offset: -17px;
+}
+.descr_dark , .descr_src_dark {
+    color: var(--black-light-color);
+} 
+.container_dark {
+    background-color: var(--panel-color);
+    border-right: 1px solid var(--border-color);
+    transition: var(--tran-05);
+
+}
+.uil-upload {
+    font-size: 100px;
+    min-width: 45px;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-light-color);
+}
+
+
+@media(max-width: 600px) {
+    .descr {
+        font-size: 12px;
+    }
+    .descr_src {
+        font-size: 12px;
+    }
+}
+@media(max-width: 320px) {
+    .descr {
+        font-size: 11px;
+    }
+    .descr_src {
+        font-size: 11px;
+    }
 }

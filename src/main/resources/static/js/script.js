@@ -1,5 +1,5 @@
 
-loginWithLocalStorage();
+
 const descr = document.querySelector('.white__block_descr'),
       email = document.querySelector('.white__block_email'),
       password = document.querySelector('.white__block_password'),
@@ -13,6 +13,7 @@ function loginWithLocalStorage(){
            var token = localStorage.getItem("token")
                           console.log(token)
                           head.append("Authorization", "Bearer "+token);
+                          console.log(token)
                            var requestOptions = {
                             method: 'GET',
                             headers: head,
@@ -23,7 +24,8 @@ function loginWithLocalStorage(){
                             .then(data => {
                                     window.location.href = "/vsuAdmin"
 
-                                }
+
+                                    }
                                 )
 
                             .catch(error => console.log('error', error));
@@ -50,10 +52,12 @@ btn.onclick = function() {
     fetch("http://127.0.0.1:5000/rest/auth/authenticate", requestOptions)
       .then(response => response.json())
       .then(data => {
-            localStorage.setItem("token",data.token)
+      console.log(data.token)
+            localStorage.setItem("token", data.token)
+            loginWithLocalStorage()
         }
 
       )
       .catch(error => console.log('error', error));
-        loginWithLocalStorage()
+
 }

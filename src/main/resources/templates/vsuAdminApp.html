@@ -15,6 +15,7 @@
     <title>Admin Dashboard Panel</title> 
 </head>
 <body>
+
     <nav>
         <div class="logo-name">
 
@@ -30,7 +31,7 @@
             </ul>
             
             <ul class="logout-mode">
-                <li><a href="/logout">
+                <li><a href="#">
                     <i class="uil uil-signout"></i>
                     <span class="link-name">Logout</span>
                 </a></li>
@@ -51,12 +52,12 @@
 
     <section class="dashboard">
         <div class="top">
-            <form id="upload-container" method="POST" action="send.php">
-                <img id="upload-image" src="img/upload.svg">
-                <div>
+            <form class="container container_dark" id="upload-container" method="POST" action="send.php">
+                <i class="uil uil-upload"></i>
+                <div class="text">
                      <input id="file-input" type="file" name="file" multiple>
-                     <label for="file-input">Выберите файл</label>
-                     <span>или перетащите его сюда</span>
+                     <label class="descr descr_dark" for="file-input">Выберите файл</label>
+                     <span class="descr_src descr_src_dark">или перетащите его сюда</span>
                 </div>
            </form>
         </div> 

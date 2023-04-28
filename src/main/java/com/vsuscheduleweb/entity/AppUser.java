@@ -1,6 +1,7 @@
 package com.vsuscheduleweb.entity;
 
 
+import com.vsuscheduleweb.security.Token.Token;
 import com.vsuscheduleweb.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,10 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -31,16 +29,25 @@ public class AppUser implements UserDetails {
     private String status;
     private String email;
     private String login;
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens = new ArrayList<>();
 
     private String password;
     @Column(name = "created_at")
     private Date createdAt;
+
+    public AppUser addToken(Token token){
+        tokens.add(token);
+        return this;
+    }
 
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @JoinTable(name = "tbRole", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     Set<Role> roles;
+
+
 
     @Override
     public Collection< ? extends GrantedAuthority> getAuthorities() {

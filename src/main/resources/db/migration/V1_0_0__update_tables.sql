@@ -10,6 +10,16 @@ CREATE TABLE "app_user"(
 
 );
 
+CREATE TABLE "token"(
+    token_id UUID,
+    token varchar(300),
+    token_type varchar(20),
+    revoked boolean,
+    expired boolean,
+    user_id UUID
+
+);
+
 CREATE TABLE "tb_role"(
     user_id UUID NOT NULL,
     role VARCHAR(40)

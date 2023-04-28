@@ -1,6 +1,7 @@
 package com.vsuscheduleweb.security;
 
 import com.vsuscheduleweb.Exceptions.TokenException;
+import com.vsuscheduleweb.security.Token.TokenRepository;
 import com.vsuscheduleweb.services.JwtService;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -25,6 +26,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
+    private final TokenRepository tokenRepository;
     private final UserDetailsService userDetailsService;
     @Override
     protected void doFilterInternal(
@@ -48,7 +50,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if(login != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(login);
-            if(jwtService.isTokenValid(jwtToken, userDetails)){
+            var token = tokenRepository.findByToken(jwtToken);
+            var isTokenValid = tokenRepository.findByToken(jwtToken)
+                    .map(t -> !t.isExpired() && !t.isRevoked())
+                    .orElse(false);
+            System.out.println(jwtService.isTokenValid(jwtToken, userDetails) + " " + isTokenValid);
+            if(jwtService.isTokenValid(jwtToken, userDetails) && isTokenValid){
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

@@ -24,12 +24,15 @@ public class SecurityConfig {
          httpSecurity
                  .csrf()
                  .disable()
+
                  .authorizeHttpRequests()
+                 .requestMatchers("/rest/auth/register").permitAll()
+                 .requestMatchers("/rest/auth/authenticate").permitAll()
                  .requestMatchers("/").authenticated()
                  .requestMatchers("/css/**","/js/**","/img/**").permitAll()
                  .requestMatchers("/vsuAdmin").authenticated()
-                 .requestMatchers("/rest/auth/register").permitAll()
-                 .requestMatchers("/rest/auth/authenticate").permitAll()
+                 .requestMatchers("/rest/auth/logout").permitAll()
+
                  .anyRequest().authenticated()
                  .and().formLogin(form->{
                      form.loginPage("/login")
@@ -37,6 +40,7 @@ public class SecurityConfig {
                              .loginProcessingUrl("/login")
                              .permitAll();
                  })
+
                  .sessionManagement()
                  .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                  .and()
