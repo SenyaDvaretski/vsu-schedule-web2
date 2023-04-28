@@ -2,9 +2,39 @@ const body = document.querySelector("body"),
       modeToggle = body.querySelector(".mode-toggle");
       sidebar = body.querySelector("nav");
       sidebarToggle = body.querySelector(".sidebar-toggle");
+      logoutBtn = document.getElementsByClassName("logoutBtn")[0];
 
-let getMode = localStorage.getItem("mode");
-if(getMode && getMode ==="dark"){
+
+logoutBtn.onclick = function () {
+    token = localStorage.getItem("token");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Cookie", "JSESSIONID=C9A5B398E23E08EBC2392F912302C741");
+
+
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("http://127.0.0.1:5000/rest/auth/logout", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+
+
+            })
+
+      .catch(error => console.log('error', error));
+}
+
+
+let mode = localStorage.getItem("mode");
+if(mode ==="dark"){
     body.classList.toggle("dark");
 }
 
@@ -22,14 +52,14 @@ modeToggle.addEventListener("click", () =>{
     }
 });
 
-sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
-    if(sidebar.classList.contains("close")){
-        localStorage.setItem("status", "close");
-    }else{
-        localStorage.setItem("status", "open");
-    }
-});
+//sidebarToggle.addEventListener("click", () => {
+//    sidebar.classList.toggle("close");
+//    if(sidebar.classList.contains("close")){
+//        localStorage.setItem("status", "close");
+//    }else{
+//        localStorage.setItem("status", "open");
+//    }
+//});
 $('#file-input').focus(function() {
     $('label').addClass('focus');
 })
