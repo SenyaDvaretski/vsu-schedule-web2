@@ -7,6 +7,21 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.submit_button {
+ -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: #555555; /* Green */
+    border: none;
+    color: white;
+    border-radius: 12px;
+    padding: 15px 32px;
+    margin:10px 0 0 0;
+    text-align: center;
+
+    display: inline-block;
+    font-size: 16px;
+}
+
 :root{
     /* ===== Colors ===== */
     --primary-color: #0E4BF1;

@@ -18,7 +18,7 @@ function loginWithLocalStorage(){
                             headers: head,
                             redirect: 'follow'
                           };
-                          fetch("http://127.0.0.1:5000/vsuAdmin", requestOptions)
+                          fetch("http://localhost:5000/vsuAdmin", requestOptions)
                             .then(response => response.text())
                             .then(data => {
                                     window.location.href = "/vsuAdmin"
@@ -33,7 +33,7 @@ function loginWithLocalStorage(){
 btn.onclick = function() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+    console.log(password.value);
     var raw = JSON.stringify({
       "password": password.value + "",
       "login": email.value + ""
@@ -48,7 +48,7 @@ btn.onclick = function() {
 
 
 
-    fetch("http://127.0.0.1:5000/rest/auth/authenticate", requestOptions)
+    fetch("http://localhost:5000/rest/auth/authenticate", requestOptions)
       .then(response => response.json())
       .then(data => {
       console.log(data.token)

@@ -3,7 +3,7 @@ const body = document.querySelector("body"),
       sidebar = body.querySelector("nav");
       sidebarToggle = body.querySelector(".sidebar-toggle");
       logoutBtn = document.getElementById("logoutBtn");
-
+      submitBtn = document.getElementById("submit_button")
 
 logoutBtn.onclick = function () {
     token = localStorage.getItem("token");
@@ -12,7 +12,7 @@ logoutBtn.onclick = function () {
     myHeaders.append("Authorization", "Bearer " + token);
     myHeaders.append("Cookie", "JSESSIONID=C9A5B398E23E08EBC2392F912302C741");
 
-
+let files = "";
 
     var requestOptions = {
       method: 'GET',
@@ -30,6 +30,11 @@ logoutBtn.onclick = function () {
             })
 
       .catch(error => console.log('error', error));
+}
+
+submitBtn.onclick = function () {
+
+    sendFiles()
 }
 
 
@@ -52,70 +57,65 @@ modeToggle.addEventListener("click", () =>{
     }
 });
 
-//sidebarToggle.addEventListener("click", () => {
-//    sidebar.classList.toggle("close");
-//    if(sidebar.classList.contains("close")){
-//        localStorage.setItem("status", "close");
-//    }else{
-//        localStorage.setItem("status", "open");
-//    }
-//});
-$('#file-input').focus(function() {
-    $('label').addClass('focus');
-})
-.focusout(function() {
-    $('label').removeClass('focus');
-});
-var dropZone = $('#upload-container');
-dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(){
-    return false;
-});
-dropZone.on('dragover dragenter', function() {
-    dropZone.addClass('dragover');
-});
+   $('#file-input').focus(function() {
+       $('label').addClass('focus');
+   })
+   .focusout(function() {
+       $('label').removeClass('focus');
+   });
+   var dropZone = $('#upload-container');
+   dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(){
+       return false;
+   });
+   dropZone.on('dragover dragenter', function() {
+       dropZone.addClass('dragover');
+   });
 
-dropZone.on('dragleave', function(e) {
-    dropZone.removeClass('dragover');
-});
-dropZone.on('dragleave', function(e) {
-    let dx = e.pageX - dropZone.offset().left;
-    let dy = e.pageY - dropZone.offset().top;
-    if ((dx < 0) || (dx > dropZone.width()) || (dy < 0) || (dy > dropZone.height())) {
-         dropZone.removeClass('dragover');
-    };
-});
-dropZone.on('drop', function(e) {
-    dropZone.removeClass('dragover');
-    let files = e.originalEvent.dataTransfer.files;
-    sendFiles(files);
-});
-$('#file-input').change(function() {
-    let files = this.files;
-    sendFiles(files);
-});
-function sendFiles(files) {
-    let maxFileSize = 5242880;
+   dropZone.on('dragleave', function(e) {
+       dropZone.removeClass('dragover');
+   });
+   dropZone.on('dragleave', function(e) {
+       let dx = e.pageX - dropZone.offset().left;
+       let dy = e.pageY - dropZone.offset().top;
+       if ((dx < 0) || (dx > dropZone.width()) || (dy < 0) || (dy > dropZone.height())) {
+            dropZone.removeClass('dragover');
+       };
+   });
+   dropZone.on('drop', function(e) {
+       dropZone.removeClass('dragover');
+       files = e.originalEvent.dataTransfer.files;
+       sendFiles(files);
+   });
+   $('#file-input').change(function() {
+       files = this.files;
+       sendFiles(files);
+   });
+function sendFiles() {
+    let facult = document.getElementById("facult").value
     let Data = new FormData();
-    $(files).each(function(index, file) {
-         if (file.size <= maxFileSize) {
-              Data.append('images[]', file);
-         }
-    });
-};
-$.ajax({
-    url: "/rest/uploadFile",
-    type: "POST",
-    data: Data,
-    contentType: "multipart/form-data",
-    dataType: 'json',
-    processData: false,
-    success: function(data) {
-         alert('Файлы были успешно загружены');
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+    myHeaders.append("Cookie", "JSESSIONID=32625BC457E59FAB133BD2B9C60A08A8");
+    if(document.getElementById("file-input") === null){
+        return // show exception on the page
     }
-});
+    let file =  document.getElementById("file-input").files[0]
+    Data.append('file', file,file.name);
 
-let descr = querySelector('.descr');
-let src = querySelector('.descr_src');
-let button = querySelector('.switch');
-let container = querySelector('.container ');
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: Data,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:5000/rest/uploadFile?f=" + facult, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+};
+let descr = document.querySelector('.descr');
+let src = document.querySelector('.descr_src');
+let button = document.querySelector('.switch');
+let container = document.querySelector('.container ');
 
