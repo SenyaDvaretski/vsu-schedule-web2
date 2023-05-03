@@ -20,7 +20,7 @@ let files = "";
       redirect: 'follow'
     };
 
-    fetch("http://127.0.0.1:5000/rest/auth/logout", requestOptions)
+    fetch("http://localhost:5000/rest/auth/logout", requestOptions)
       .then(response => response.text())
       .then(result => {
             localStorage.removeItem("token");
