@@ -403,7 +403,7 @@ public  class Parser {
         return Optional.empty();
     }
 
-    private int getLengthOfWorkspace(List<Cell> cells){ // только после returnWorkspace()
+    private int getLengthOfWorkspace(List<Cell> cells){ // only after returnWorkspace()
         int length = 0;
         for(int i = 1; true; i++) {
             if (cells.get(i).getCellStyle().getBorderLeft() >= 3)
