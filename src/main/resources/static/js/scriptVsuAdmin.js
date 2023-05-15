@@ -92,6 +92,10 @@ modeToggle.addEventListener("click", () =>{
    });
 function sendFiles() {
     let facult = document.getElementById("facult").value
+    console.log(facult)
+    if(facult === "select"){
+        alert("вы не выбрали факультет!")
+    }
     let Data = new FormData();
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
@@ -100,6 +104,10 @@ function sendFiles() {
         return // show exception on the page
     }
     let file =  document.getElementById("file-input").files[0]
+    if(file === undefined){
+        alert("вы не выбрали файл!");
+    }
+
     Data.append('file', file,file.name);
 
     var requestOptions = {
@@ -110,7 +118,14 @@ function sendFiles() {
     };
 
     fetch("http://127.0.0.1:5000/rest/uploadFile?f=" + facult, requestOptions)
-      .then(response => response.text())
+      .then(response => {
+            if(response.status == 200){
+                alert("Успешно!")
+            }
+            if(response.status == 400){
+                alert("Ошибка заполнения или формата таблицы!")
+            }
+      })
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
 };

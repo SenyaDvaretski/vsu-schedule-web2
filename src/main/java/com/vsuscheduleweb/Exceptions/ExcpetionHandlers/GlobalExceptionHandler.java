@@ -7,6 +7,7 @@ import com.vsuscheduleweb.Exceptions.Errors.AppError;
 import com.vsuscheduleweb.Exceptions.ObjectIsPresentException;
 import com.vsuscheduleweb.Exceptions.ResponseNotFoundException;
 import com.vsuscheduleweb.Exceptions.TokenException;
+import com.vsuscheduleweb.parser.ParserException;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<AppError>(new AppError(HttpStatus.FORBIDDEN.value(), e.getMessage()),HttpStatus.FORBIDDEN);
 
     }
+
+
 
 }

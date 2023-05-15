@@ -1,6 +1,7 @@
 package com.vsuscheduleweb.Controllers;
 
 
+import com.vsuscheduleweb.parser.ParserException;
 import com.vsuscheduleweb.services.ScheduleService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class AdminRestController {
     @PostMapping("/rest/uploadFile")
 
     public ResponseEntity uploadSchedule(@RequestPart MultipartFile file,
-                                         @RequestParam("f") String fac){
+                                         @RequestParam("f") String fac) {
         String filePath = request.getServletContext().getRealPath("/");
 
         return scheduleService.saveFile(file,fac,filePath);

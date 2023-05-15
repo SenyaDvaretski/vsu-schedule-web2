@@ -1,6 +1,7 @@
 package com.vsuscheduleweb.services;
 
 
+import com.vsuscheduleweb.Exceptions.Errors.AppError;
 import com.vsuscheduleweb.parser.Parser;
 import com.vsuscheduleweb.parser.ParserException;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +36,16 @@ public class ScheduleService {
                 fileOutputStream.close();
                 try{
                     parser.parse(file,facult);
-                    System.out.println(parser.getGroups());
-                    System.out.println(parser.getTeachers());
                 }catch (ParserException e){
-                    System.out.println(e.getMessage());
+                    return new ResponseEntity<AppError>(new AppError(HttpStatus.BAD_REQUEST.value(),
+                            e.getMessage()),HttpStatus.BAD_REQUEST);
                 }
+
+                System.out.println(parser.getGroups());
+                System.out.println(parser.getTeachers());
+
+
+
                 return new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.OK);
             }catch (IOException e){
                 e.printStackTrace();
