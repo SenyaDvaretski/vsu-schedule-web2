@@ -20,7 +20,7 @@ let files = "";
       redirect: 'follow'
     };
 
-    fetch("http://localhost:5000/rest/auth/logout", requestOptions)
+    fetch("http://127.0.0.1:5000/rest/auth/logout", requestOptions)
       .then(response => response.text())
       .then(result => {
             localStorage.removeItem("token");
@@ -109,7 +109,7 @@ function sendFiles() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:5000/rest/uploadFile?f=" + facult, requestOptions)
+    fetch("http://127.0.0.1:5000/rest/uploadFile?f=" + facult, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));

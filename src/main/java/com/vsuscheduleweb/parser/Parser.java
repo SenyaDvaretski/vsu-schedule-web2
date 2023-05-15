@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import com.vsuscheduleweb.entity.*;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.*;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 
 @NoArgsConstructor
+@Component
 public  class Parser {
 
     private List<Teacher> teachers = new ArrayList<>();
@@ -97,7 +99,7 @@ public  class Parser {
                 .replace(".",":");
     }
 
-    private  HashMap<Integer,Subgroup> parseGroups(List<Cell> workspace) throws ParserException{
+    private  HashMap<Integer,Subgroup> parseGroups(List<Cell> workspace, String facult) throws ParserException{
         HashMap<Integer,Subgroup> map = new HashMap<>();
         Queue<Group> queue = new ArrayDeque<>();
         Queue<Group> queueCache = new ArrayDeque<>();
@@ -125,7 +127,7 @@ public  class Parser {
                 Group group = queue.poll();
                 if(group != null) {
                     queueCache.add(group);
-                    group.setId(workspace.get(i).getStringCellValue());
+                    group.setId(workspace.get(i).getStringCellValue() + "/" + facult);
                 }
                 if(workspace.get(i+1).getColumnIndex() == 3 && workspace.get(i + 1).getCellStyle().getBorderLeft() > 3){
                     for(int j = 0; j < count; j++)
@@ -156,12 +158,12 @@ public  class Parser {
 
     }
 
-    public void parse(File xlsFile) throws ParserException{
+    public void parse(File xlsFile , String facult) throws ParserException{
         Workbook wb = readWorkbook(xlsFile);
         List<Cell> workspace = returnWorkspace(wb);
         final int length = getLengthOfWorkspace(workspace);
         parsMode = ParserStage.PARSER_STAGE_NAME_OF_GROUPS;
-        HashMap<Integer,Subgroup> map = parseGroups(workspace);
+        HashMap<Integer,Subgroup> map = parseGroups(workspace, facult);
         String day = "";
         String date = "";
         String startTime = "";
