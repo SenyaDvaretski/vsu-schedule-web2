@@ -1,5 +1,6 @@
 package com.vsuscheduleweb.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -11,11 +12,16 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @ToString
+@Entity(name = "subgroups")
 public class Subgroup {
 
-    String id;
+    @Id
+    @Column(name = "subgroups_id")
+    private String id;
 
-    List<Lesson> lessons = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "subgroup_id", updatable = false)
+    private List<Lesson> lessons = new ArrayList<>();
     public void addLesson(Lesson lesson){
         lessons.add(lesson);
     }

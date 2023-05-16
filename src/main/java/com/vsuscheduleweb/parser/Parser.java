@@ -159,6 +159,8 @@ public  class Parser {
     }
 
     public void parse(File xlsFile , String facult) throws ParserException{
+        groups = new ArrayList<>();
+        teachers = new ArrayList<>();
         Workbook wb = readWorkbook(xlsFile);
         List<Cell> workspace = returnWorkspace(wb);
         final int length = getLengthOfWorkspace(workspace);
@@ -210,7 +212,8 @@ public  class Parser {
                 lesson .setDate(date)
                         .setWeekDay(day)
                         .setStartTime(startTime)
-                        .setEndTime(endTime);
+                        .setEndTime(endTime)
+                        .setId(UUID.randomUUID());
                 queueOfLessons.add(lesson);
                 countOfLessons++;
                 if ((isAdjacentColumns(workspace.get(i),workspace.get(i + 1)) ||

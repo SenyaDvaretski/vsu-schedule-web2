@@ -1,27 +1,35 @@
 package com.vsuscheduleweb.entity;
 
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UUID;
 
 
 @Data
 @Accessors(chain = true)
 @ToString
+@Entity(name = "groups")
 public class Group {
-    String id;
+    @Id
+    @Column(name = "group_id")
+    private String id;
 
-    List<Lesson> commonLessons = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "group_id", updatable = false)
+    private List<Lesson> commonLessons = new ArrayList<>();
 
-    List<Subgroup> subgroups = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "group_id", updatable = false)
+    private List<Subgroup> subgroups = new ArrayList<>();
+    @Column(name = "group_name")
+    private String name;
 
-    String name;
-
-    int countOfSubGroups; // transitional
+    private transient int countOfSubGroups;
 
     public void addLesson(Lesson lesson){
         commonLessons.add(lesson);

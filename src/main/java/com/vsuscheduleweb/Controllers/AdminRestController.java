@@ -24,9 +24,9 @@ public class AdminRestController {
 
     public ResponseEntity uploadSchedule(@RequestPart MultipartFile file,
                                          @RequestParam("f") String fac) {
-        String filePath = request.getServletContext().getRealPath("/");
 
-        return scheduleService.saveFile(file,fac,filePath);
+
+        return scheduleService.saveFile(file,fac);
 
     }
 
