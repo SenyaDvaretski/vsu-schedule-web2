@@ -89,7 +89,7 @@ class Person:
             "initials": self.__initials,
             "imgLink":self.__imgLink,
             "description" : self.__description,
-            "fullName" : self.__fullname,
+            "fullname" : self.__fullname,
             "qualification" : self.__qualification,
             "lessons": self.__lessons
         }   

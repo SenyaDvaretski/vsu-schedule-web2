@@ -31,7 +31,7 @@ CREATE TABLE "groups"(
 );
 
 CREATE TABLE "teachers"(
-    teacher_id UUID PRIMARY KEY NOT NULL,
+    teacher_id integer PRIMARY KEY NOT NULL,
     firstname varchar(40)  not null,
     lastname varchar(40) not null,
     surname varchar(40) not null,
@@ -61,7 +61,7 @@ CREATE TABLE "subgroups"(
 );
 
 CREATE TABLE "lessons_teachers"(
-    teachers_teacher_id UUID,
+    teachers_teacher_id integer,
     lessons_lesson_id UUID,
     CONSTRAINT id PRIMARY KEY (teachers_teacher_id,lessons_lesson_id)
 

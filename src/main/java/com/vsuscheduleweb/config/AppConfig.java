@@ -1,10 +1,13 @@
 package com.vsuscheduleweb.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.vsuscheduleweb.entity.Teacher;
 import com.vsuscheduleweb.repositories.AppUserRepository;
 import com.vsuscheduleweb.repositories.TeacherRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.xmlbeans.impl.tool.CommandLine;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,14 +20,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class AppConfig {
     private final AppUserRepository appUserRepository;
+
+    private final TeacherRepository teacherRepository;
     @Bean
     public UserDetailsService getUserDetails(){
         return username -> appUserRepository.findByLogin(username)
@@ -53,8 +57,8 @@ public class AppConfig {
     @Bean
     public CommandLineRunner teacherLoader(TeacherRepository teacherRepository){
         return args ->{
-
-           Process p =  Runtime.getRuntime().exec("python " + System.getProperty("user.dir") + "\\src\\main\\scriptspython\\teacherParser.py");
+            String pathTeachersDir = System.getProperty("user.dir") + "\\src\\main\\scriptspython\\teachers";
+            Process p =  Runtime.getRuntime().exec("python " + System.getProperty("user.dir") + "\\src\\main\\scriptspython\\teacherParser.py");
             InputStream stdout = p.getInputStream();
             InputStream stderr = p.getErrorStream();
             InputStreamReader isr = new InputStreamReader(stdout);
@@ -67,12 +71,25 @@ public class AppConfig {
 
             while ((line = br.readLine()) != null)
                 if(line.equals("1")){
-                    System.out.println("[+] teachers have been parsed!");
+                    log.info("[+] teachers have been parsed!");
                     p.destroyForcibly();
                 }
 
             while ((line = brerr.readLine()) != null)
-                if(!line.isEmpty()) System.out.println("[-] Error teachers have not been parsed!" + "\n" + line );
+                if(!line.isEmpty()) log.error("[-] Error teachers have not been parsed!" + "\n" + line );
+
+
+            File dir = new File(pathTeachersDir);
+            File[] arrFiles = dir.listFiles();
+            ObjectMapper objectMapper = new ObjectMapper();
+            for(File file : arrFiles){
+                Teacher teacher = objectMapper.readValue(file, Teacher.class);
+                teacherRepository.save(teacher);
+
+            }
+            log.info("[+] teachers have been saved!");
+
+
 
 
 

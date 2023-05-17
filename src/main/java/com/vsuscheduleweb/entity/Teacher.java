@@ -18,7 +18,7 @@ public class Teacher {
 
     @Id
     @Column(name = "teacher_id")
-    private UUID id;
+    private Integer id;
     private String firstname;
     private String lastname;
     private String surname;
