@@ -20,6 +20,7 @@ public  class Parser {
     private List<Teacher> teachers = new ArrayList<>();
     private List<Group> groups = new ArrayList<>();
 
+    private List<Lesson> lessons = new ArrayList<>();
     private ParserStage parsMode;
 
     public List<Teacher> getTeachers() {
@@ -39,6 +40,9 @@ public  class Parser {
         return groups;
     }
 
+    public List<Lesson> getLessons(){
+        return lessons;
+    }
 
     private  List<Cell> returnWorkspace(Workbook wb){
         List<Cell> cells = getAllCellsWhereBorderLeftExist(wb);
@@ -214,6 +218,7 @@ public  class Parser {
                         .setStartTime(startTime)
                         .setEndTime(endTime)
                         .setId(UUID.randomUUID());
+                lessons.add(lesson);
                 queueOfLessons.add(lesson);
                 countOfLessons++;
                 if ((isAdjacentColumns(workspace.get(i),workspace.get(i + 1)) ||
@@ -255,18 +260,18 @@ public  class Parser {
                     if (!workspace.get(i).getStringCellValue().equals("")) {
                         if (!workspace.get(i).getStringCellValue().contains(",")) {
                             Teacher teacher = parseTeacher(workspace.get(i).getStringCellValue());
-                            lesson.addTeacher(teacher);
+                            //TODO add to lesson initials and lastname
                             teachers.add(teacher);
                             teacher.addLesson(lesson);
                         } else {
                             for (String teacherString : splitManyTeachersToList(workspace.get(i))) {
                                 Teacher teacher = parseTeacher(teacherString);
-                                lesson.addTeacher(teacher);
+                                //TODO add to lesson initials and lastname
                                 teacher.addLesson(lesson);
                             }
                         }
-                    } else
-                        lesson.addTeacher(new Teacher());
+                    } //TODO else add to lesson initials and lastname empty
+
                 }
                 if(workspace.get(i + 1).getColumnIndex() == 3){
                     parsMode = ParserStage.PARSER_STAGE_AUDITORIUMS;

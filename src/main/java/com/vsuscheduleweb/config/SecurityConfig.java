@@ -28,6 +28,8 @@ public class SecurityConfig {
                  .authorizeHttpRequests()
                  .requestMatchers("/rest/auth/register").permitAll()
                  .requestMatchers("/rest/auth/authenticate").permitAll()
+                 .requestMatchers("/rest/teachers").permitAll()
+                 .requestMatchers("/rest/groups").permitAll()
                  .requestMatchers("/").authenticated()
                  .requestMatchers("/css/**","/js/**","/img/**").permitAll()
                  .requestMatchers("/vsuAdmin").authenticated()

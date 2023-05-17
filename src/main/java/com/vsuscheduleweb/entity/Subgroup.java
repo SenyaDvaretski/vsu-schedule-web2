@@ -22,6 +22,9 @@ public class Subgroup {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "subgroup_id", updatable = false)
     private List<Lesson> lessons = new ArrayList<>();
+
+    @Column(name = "group_id")
+    private String groupId;
     public void addLesson(Lesson lesson){
         lessons.add(lesson);
     }

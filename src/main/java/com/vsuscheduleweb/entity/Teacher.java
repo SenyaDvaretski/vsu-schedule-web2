@@ -31,7 +31,8 @@ public class Teacher {
 
 
 
-    @ManyToMany(mappedBy = "teachers", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "teacher_id", updatable = false)
     private List<Lesson> lessons = new ArrayList<>();
     private String qualification;
     public Teacher addLesson(Lesson lesson){

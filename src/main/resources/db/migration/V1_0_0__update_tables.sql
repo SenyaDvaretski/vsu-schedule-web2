@@ -27,7 +27,7 @@ CREATE TABLE "tb_role"(
 
 CREATE TABLE "groups"(
     group_id VARCHAR(40) PRIMARY KEY NOT NULL,
-    group_name VARCHAR(40) NOT NULL
+    group_name VARCHAR(150) NOT NULL
 );
 
 CREATE TABLE "teachers"(
@@ -35,11 +35,12 @@ CREATE TABLE "teachers"(
     firstname varchar(40)  not null,
     lastname varchar(40) not null,
     surname varchar(40) not null,
-    initials varchar(3) not null,
+    initials varchar(6) not null,
     qualification varchar(40),
-    fullname varchar(40),
+    fullname varchar(150),
     img_link varchar(100),
-    description varchar(150)
+    description varchar(150),
+    countOfSubGroups integer
 );
 
 CREATE TABLE "lessons"(
@@ -49,10 +50,12 @@ CREATE TABLE "lessons"(
     auditorium varchar(10),
     "date" varchar(15),
     weekday varchar(15),
-    lesson_name varchar(30),
+    lesson_name varchar(150),
     type varchar(20),
     subgroup_id varchar(40),
-    group_id varchar(40)
+    group_id varchar(40),
+    teacher_id integer,
+    facult varchar(100)
 );
 
 CREATE TABLE "subgroups"(
@@ -60,9 +63,3 @@ CREATE TABLE "subgroups"(
     group_id varchar(40)
 );
 
-CREATE TABLE "lessons_teachers"(
-    teachers_teacher_id integer,
-    lessons_lesson_id UUID,
-    CONSTRAINT id PRIMARY KEY (teachers_teacher_id,lessons_lesson_id)
-
-);

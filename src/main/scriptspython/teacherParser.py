@@ -29,7 +29,6 @@ class Person:
     __imgLink : str
     __fullname : str
     __id: int
-    __lessons: list
     __qualification: str
     def __init__(self, firstName = "", lastname = "", surname = "", 
                  initials = "", description = "", imgLink = "", fullname = "", id = 0) -> None:
@@ -42,7 +41,7 @@ class Person:
         self.__fullname = fullname
         self.__id = id
         self.__qualification = ""
-        self.__lessons = []
+
 
     def setFirstname(self, firstname: str) -> None:
         self.firstname = firstname
@@ -91,7 +90,7 @@ class Person:
             "description" : self.__description,
             "fullname" : self.__fullname,
             "qualification" : self.__qualification,
-            "lessons": self.__lessons
+
         }   
         
 
@@ -122,7 +121,7 @@ def parse(letter: str )-> None:
                 person.setLastName(str(fioSplit[0]))
                 person.setDescription(str(personCard.text.replace(fio,"")))
 
-                person.setInitials(f"{fioSplit[1][0]}.{fioSplit[2][0]}")
+                person.setInitials(f"{fioSplit[1][0]}.{fioSplit[2][0]}.")
 
             except IndexError:
                 person.setLastName(fioSplit[0])

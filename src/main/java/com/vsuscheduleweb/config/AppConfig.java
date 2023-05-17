@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.*;
+import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -84,7 +85,9 @@ public class AppConfig {
             ObjectMapper objectMapper = new ObjectMapper();
             for(File file : arrFiles){
                 Teacher teacher = objectMapper.readValue(file, Teacher.class);
-                teacherRepository.save(teacher);
+                Optional<Teacher> opt_teacher = teacherRepository.findById(teacher.getId());
+                if(!opt_teacher.isPresent())
+                    teacherRepository.save(teacher);
 
             }
             log.info("[+] teachers have been saved!");

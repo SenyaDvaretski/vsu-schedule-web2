@@ -34,18 +34,22 @@ public class Lesson {
     @Column(name = "weekday")
     private String weekDay;
 
+    @Column(name = "group_id")
+    private String groupId;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Teacher>  teachers = new ArrayList<>();
+    @Column(name = "teacher_id")
+    private Integer teacherId;
+
+    @Column(name = "subgroup_id")
+    private String subgroupId;
 
     @Column(name = "lesson_name")
     private String name;
 
     private String type;
 
-    public Lesson addTeacher(Teacher teacher){
-        teachers.add(teacher);
-        return this;
-    }
+    private String facult;
+
+
 
 }
