@@ -43,7 +43,6 @@ public class ScheduleService {
 
     private final LessonRepository lessonRepository;
 
-    private final SubgroupRepository subgroupRepository;
 
 
 
@@ -67,24 +66,49 @@ public class ScheduleService {
 
                     List<Group> groups = parser.getGroups();
                     List<Lesson> lessons = parser.getLessons();
+                    List<Teacher> teachers = parser.getTeachers();
                     for(Lesson lesson : lessons){
                         lesson.setFacult(facult);
                     }
-                    for(Group group : groups){
-                        for(Lesson lesson : group.getCommonLessons()){
-                            lessonRepository.save(lesson);
-                        }
-                        for(Subgroup subgroup: group.getSubgroups()){
-                            for(Lesson lesson : subgroup.getLessons()){
-                                lessonRepository.save(lesson);
 
+                    teachers.forEach(teacher -> {
+                        try {
+                            Optional<Teacher> opt_teacher = teacherRepository.findByInitialsAndLastname(teacher.getInitials(),
+                                    teacher.getLastname().toUpperCase(Locale.ROOT));
+
+                            if (opt_teacher.isPresent()) {
+                                teacher.getLessons().forEach(lesson -> {
+                                    lesson.setTeacherId(opt_teacher.get().getId());
+                                });
+                                opt_teacher.get().setLessons(teacher.getLessons());
+                                teacherRepository.save(opt_teacher.get());
                             }
-                            subgroupRepository.save(subgroup);
+                        }catch (IncorrectResultSizeDataAccessException e){
+                            lessons.forEach(
+                                    lesson -> {
+                                        lesson.setTeacherId(-1);
+                                    }
+                            );
                         }
-                        groupRepository.save(group);
+                    });
+
+
+                    for(int i = 0; i < groups.size(); i++){
+                        Group group = groups.get(i);
+                        for(int j = 0; j < group.getCommonLessons().size(); j++){
+                            Lesson lesson = group.getCommonLessons().get(j);
+                            lesson.setGroupId(group.getId());
+                        }
+                        for(int j = 0; j < group.getSubgroups().size(); j++){
+                            Subgroup subgroup = group.getSubgroups().get(j);
+                            subgroup.setGroupId(group.getId());
+                            for(int k = 0; k < subgroup.getLessons().size(); k++){
+                                Lesson lesson = subgroup.getLessons().get(k);
+                                lesson.setSubgroupId(subgroup.getId());
+                            }
+                        }
                     }
-
-
+                    groupRepository.saveAll(groups);
 
                 }catch (ParserException e){
                     return new ResponseEntity<AppError>(new AppError(HttpStatus.BAD_REQUEST.value(),

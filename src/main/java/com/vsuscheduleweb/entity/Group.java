@@ -23,7 +23,7 @@ public class Group {
     @JoinColumn(name = "group_id", updatable = false)
     private List<Lesson> commonLessons = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id", updatable = false)
     private List<Subgroup> subgroups = new ArrayList<>();
     @Column(name = "group_name")

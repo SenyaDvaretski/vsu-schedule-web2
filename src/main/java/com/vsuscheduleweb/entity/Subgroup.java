@@ -19,7 +19,7 @@ public class Subgroup {
     @Column(name = "subgroups_id")
     private String id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "subgroup_id", updatable = false)
     private List<Lesson> lessons = new ArrayList<>();
 

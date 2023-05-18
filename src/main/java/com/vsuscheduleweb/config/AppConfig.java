@@ -90,6 +90,13 @@ public class AppConfig {
                     teacherRepository.save(teacher);
 
             }
+            teacherRepository.save(new Teacher() //empty teacher opt.
+                    .setId(-1)
+                    .setFirstname("")
+                    .setLastname("")
+                    .setSurname("")
+                    .setInitials("")
+            );
             log.info("[+] teachers have been saved!");
 
 

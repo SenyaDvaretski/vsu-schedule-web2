@@ -260,17 +260,16 @@ public  class Parser {
                     if (!workspace.get(i).getStringCellValue().equals("")) {
                         if (!workspace.get(i).getStringCellValue().contains(",")) {
                             Teacher teacher = parseTeacher(workspace.get(i).getStringCellValue());
-                            //TODO add to lesson initials and lastname
                             teachers.add(teacher);
                             teacher.addLesson(lesson);
                         } else {
                             for (String teacherString : splitManyTeachersToList(workspace.get(i))) {
                                 Teacher teacher = parseTeacher(teacherString);
-                                //TODO add to lesson initials and lastname
+
                                 teacher.addLesson(lesson);
                             }
                         }
-                    } //TODO else add to lesson initials and lastname empty
+                    }
 
                 }
                 if(workspace.get(i + 1).getColumnIndex() == 3){

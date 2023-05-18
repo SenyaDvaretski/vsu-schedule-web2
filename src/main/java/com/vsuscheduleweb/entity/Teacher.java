@@ -31,12 +31,12 @@ public class Teacher {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id", updatable = false)
     private List<Lesson> lessons = new ArrayList<>();
     private String qualification;
     public Teacher addLesson(Lesson lesson){
-
+        lessons.add(lesson);
         return this;
     }
 
